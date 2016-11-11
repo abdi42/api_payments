@@ -4,8 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var stripe = require("stripe")("sk_test_dJrow4I6j74tdb1ExjPlaLF9");
 var subscribe = require('./routes/subscribe');
+var faker = require('faker');
 
 var app = express();
 
@@ -20,6 +21,26 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req,res,next){
+  stripe.tokens.create({
+    card: {
+      "number": '4000000000000077',
+      "exp_month": 12,
+      "exp_year": 2017,
+      "cvc": '123'
+    }
+  }, function(err, token) {
+    if(err){
+      next(err)
+    }
+
+    req.body.token = token.id;
+    req.body.email = faker.internet.email();
+
+    next(null);
+  });
+})
 
 app.use('/subscribe', subscribe);
 

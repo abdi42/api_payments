@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
     },function(err,customer){
       if(err){
         res.status(400)
-        next(err)
+        return next(err)
       }
 
       res.json(customer);

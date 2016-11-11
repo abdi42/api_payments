@@ -4,6 +4,6 @@ exports.subscribe = function(customerInfo,callback){
   stripe.customers.create({
     source: customerInfo.token,
     plan: customerInfo.plan,
-    email: customer.email
+    email: customerInfo.email
   },callback);
 }
