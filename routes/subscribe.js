@@ -8,13 +8,12 @@ router.post('/', function(req, res, next) {
       email:req.body.email,
       token:req.body.token,
       plan:req.body.plan
-    },function(err,customer){
+    },function(err){
       if(err){
         res.status(400)
         return next(err)
       }
-
-      res.json(customer);
+      res.json("subscribed customer");
     })
 });
 

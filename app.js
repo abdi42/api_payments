@@ -7,8 +7,10 @@ var bodyParser = require('body-parser');
 var stripe = require("stripe")("sk_test_dJrow4I6j74tdb1ExjPlaLF9");
 var subscribe = require('./routes/subscribe');
 var faker = require('faker');
+var mongoose = require('mongoose');
 
 var app = express();
+mongoose.connect('mongodb://localhost/payments');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,6 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req,res,next){
+  console.log("STRIPE")
   stripe.tokens.create({
     card: {
       "number": '4000000000000077',
