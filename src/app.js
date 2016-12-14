@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var subscriptionsController = require("./controllers/subscriptions.js")
 var kue = require('kue')
  , queue = kue.createQueue();
- 
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/payments');
 
