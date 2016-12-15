@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var subscriptionSchema = new Schema({
   email: String,
   plan: String,
-  subscription:String,
+  subId:String,
 });
 
 // we need to create a model
