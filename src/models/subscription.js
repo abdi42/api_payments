@@ -2,15 +2,14 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // create a schema
-var userSchema = new Schema({
+var subscriptionSchema = new Schema({
   email: String,
   plan: String,
-  subscription:String
+  subscription:String,
 });
 
-// the schema is useless so far
-// we need to create a model using it
-var User = mongoose.model('User', userSchema);
+// we need to create a model
+var User = mongoose.model('Subscription', subscriptionSchema);
 
 // make this available to our users in our Node applications
 module.exports = User;
