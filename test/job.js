@@ -1,5 +1,5 @@
 var stripe = require("stripe")("sk_test_dJrow4I6j74tdb1ExjPlaLF9");
-var ArgumentParser = require('../lib/argparse').ArgumentParser;
+var ArgumentParser = require('argparse').ArgumentParser;
 var faker = require("faker")
 var kue = require('kue'),
     queue = kue.createQueue();
