@@ -9,11 +9,15 @@ function subscribeCustomer() {
             console.log(err)
         }
         else {
-            customerInfo.plan = "unlimited_plan"
+            console.log('source generated')
+	    customerInfo.plan = "unlimited_plan"
             var job = queue.create('subscribeCustomer', customerInfo).removeOnComplete(true).save();
-
+  	    console.log("job created");
             job.on('complete', function(result) {
                 console.log(result)
+            }).on('failed', function(errorMessage){
+     	 	console.log('Job failed');
+     		console.log(errorMessage)
             })
         }
     })
@@ -44,7 +48,8 @@ function generateSource(done) {
             return done(err)
 
         var customerInfo = {
-            token: token.id
+            token: token.id,
+	    email:faker.internet.email()
         }
 
         return done(null, customerInfo)
@@ -52,4 +57,4 @@ function generateSource(done) {
 }
 
 
-unsubscribeCustomer()
+subscribeCustomer()
