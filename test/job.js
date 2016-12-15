@@ -49,7 +49,7 @@ function subscribeCustomer() {
 }
 
 function unsubscribeCustomer() {
-    var job = queue.create('unsubscribeCustomer', {}).removeOnComplete(true).save();
+    var job = queue.create('unsubscribeCustomer', {email:args.email}).removeOnComplete(true).save();
 
     job.on('complete', function(result) {
         console.log(result)
