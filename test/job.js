@@ -9,28 +9,29 @@ function subscribeCustomer() {
             console.log(err)
         }
         else {
-            console.log('source generated')
-	    customerInfo.plan = "unlimited_plan"
-            var job = queue.create('subscribeCustomer', customerInfo).removeOnComplete(true).save();
-  	    console.log("job created");
-            job.on('complete', function(result) {
-                console.log(result)
-            }).on('failed', function(errorMessage){
-     	 	console.log('Job failed');
-     		console.log(errorMessage)
-            })
+          console.log('source generated')
+          customerInfo.plan = "unlimited_plan"
+          var job = queue.create('subscribeCustomer', customerInfo).removeOnComplete(true).save();
+          console.log("job created");
+          job.on('complete', function(result) {
+              console.log(result)
+          }).on('failed', function(errorMessage) {
+              console.log('Job failed');
+              console.log(errorMessage)
+          })
+
         }
     })
 }
 
 function unsubscribeCustomer() {
-    var job = queue.create('unsubscribeCustomer',{}).removeOnComplete(true).save();
+    var job = queue.create('unsubscribeCustomer', {}).removeOnComplete(true).save();
 
     job.on('complete', function(result) {
         console.log(result)
-    }).on('failed', function(errorMessage){
-      console.log('Job failed');
-     console.log(errorMessage)
+    }).on('failed', function(errorMessage) {
+        console.log('Job failed');
+        console.log(errorMessage)
     })
 }
 
@@ -49,7 +50,7 @@ function generateSource(done) {
 
         var customerInfo = {
             token: token.id,
-	    email:faker.internet.email()
+            email: faker.internet.email()
         }
 
         return done(null, customerInfo)
