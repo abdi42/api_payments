@@ -1,7 +1,31 @@
 var stripe = require("stripe")("sk_test_dJrow4I6j74tdb1ExjPlaLF9");
+var ArgumentParser = require('../lib/argparse').ArgumentParser;
 var faker = require("faker")
 var kue = require('kue'),
     queue = kue.createQueue();
+
+
+var parser = new ArgumentParser({
+  version: '0.0.1',
+  addHelp:true,
+  description: 'jobs tester'
+});
+
+parser.addArgument(
+  ['-j','--job'],
+  {
+    help:"type of job"
+  }
+)
+
+parser.addArgument(
+  ['-e','--email'],
+  {
+    help:"user email"
+  }
+)
+
+var args = parser.parseArgs();
 
 function subscribeCustomer() {
     generateSource(function(err, customerInfo) {
@@ -57,5 +81,10 @@ function generateSource(done) {
     });
 }
 
-
-subscribeCustomer()
+if(args.job == 'subscribe' || args.job == 'sub'){
+  subscribeCustomer()
+}
+else if(args.job == 'unsubscribe' || args.job == 'unsub'){
+  if(args.email)
+    unsubscribeCustomer()
+}
