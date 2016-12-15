@@ -48,8 +48,9 @@ function subscribeCustomer() {
     })
 }
 
-function unsubscribeCustomer() {
-    var job = queue.create('unsubscribeCustomer', {email:args.email}).removeOnComplete(true).save();
+function unsubscribeCustomer(email) {
+    var job = queue.create('unsubscribeCustomer', {email:email}).removeOnComplete(true).save();
+    console.log("job created")
 
     job.on('complete', function(result) {
         console.log(result)
@@ -85,6 +86,8 @@ if(args.job == 'subscribe' || args.job == 'sub'){
   subscribeCustomer()
 }
 else if(args.job == 'unsubscribe' || args.job == 'unsub'){
-  if(args.email)
-    unsubscribeCustomer()
+  if(args.email){
+    console.log(args.email)
+    unsubscribeCustomer(args.email)
+  }
 }
