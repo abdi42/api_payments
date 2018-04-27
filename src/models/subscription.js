@@ -5,11 +5,11 @@ var Schema = mongoose.Schema;
 var subscriptionSchema = new Schema({
   email: String,
   plan: String,
-  subId:String,
+  subId:String
 });
 
 // we need to create a model
-var User = mongoose.model('Subscription', subscriptionSchema);
+var Subscription = mongoose.model('Subscription', subscriptionSchema);
 
 // make this available to our users in our Node applications
-module.exports = User;
+module.exports = Subscription;
